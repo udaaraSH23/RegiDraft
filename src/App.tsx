@@ -13,12 +13,15 @@
  */
 
 import React, { useState } from 'react';
-import Wizard from './components/Wizard';
+import Wizard, { Tab } from './components/Wizard';
 import LandingPage from './components/LandingPage';
+import { PenTool, BookOpen, Library } from 'lucide-react';
 
 export default function App() {
   // State to manage the view transition (Landing -> App)
   const [showWizard, setShowWizard] = useState(false);
+  // State to manage the active tab in the Wizard
+  const [activeTab, setActiveTab] = useState<Tab>('draft');
 
   // Conditional rendering based on state (Strategy Pattern)
   if (!showWizard) {
@@ -28,8 +31,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#F8F9FA] text-[#1A1A1A] font-sans">
       {/* Global Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-20 no-print">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          {/* Left: Logo */}
           <div 
             className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
             onClick={() => setShowWizard(false)}
@@ -40,14 +44,52 @@ export default function App() {
             </div>
             <h1 className="font-semibold text-lg tracking-tight">RegiDraft</h1>
           </div>
-          <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+          {/* Center: Navigation Tabs (Only visible when Wizard is active) */}
+          <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="bg-gray-100 p-1 rounded-xl flex gap-1">
+              <button
+                onClick={() => setActiveTab('draft')}
+                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
+                  activeTab === 'draft' || activeTab === 'review'
+                    ? 'bg-white text-black shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'
+                }`}
+              >
+                <PenTool size={14} /> Draft
+              </button>
+              <button
+                onClick={() => setActiveTab('learn')}
+                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
+                  activeTab === 'learn'
+                    ? 'bg-white text-emerald-700 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'
+                }`}
+              >
+                <BookOpen size={14} /> Learn
+              </button>
+              <button
+                onClick={() => setActiveTab('reference')}
+                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
+                  activeTab === 'reference'
+                    ? 'bg-white text-blue-700 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200/50'
+                }`}
+              >
+                <Library size={14} /> Reference
+              </button>
+            </div>
+          </div>
+
+          {/* Right: Meta Info */}
+          <div className="text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:block">
             Companies Act No. 07 of 2007
           </div>
         </div>
       </header>
       
       <main className="py-8">
-        <Wizard />
+        <Wizard activeTab={activeTab} onTabChange={setActiveTab} />
       </main>
     </div>
   );

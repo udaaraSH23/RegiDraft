@@ -22,11 +22,15 @@ import StructureExplainer from './StructureExplainer';
 import ModelArticlesReference from './ModelArticlesReference';
 
 // Define the available views (Strategies)
-type Tab = 'learn' | 'draft' | 'review' | 'reference';
+export type Tab = 'learn' | 'draft' | 'review' | 'reference';
 
-export default function Wizard() {
+interface WizardProps {
+  activeTab: Tab;
+  onTabChange: (tab: Tab) => void;
+}
+
+export default function Wizard({ activeTab, onTabChange }: WizardProps) {
   // State Management (Observer Pattern via React Hooks)
-  const [activeTab, setActiveTab] = useState<Tab>('draft');
   const [currentStep, setCurrentStep] = useState(0);
   
   // Centralized Configuration State
@@ -48,7 +52,7 @@ export default function Wizard() {
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      setActiveTab('review');
+      onTabChange('review');
     }
   };
 
@@ -148,7 +152,7 @@ export default function Wizard() {
             <h2 className="text-2xl font-bold text-gray-900">Final Review</h2>
             <div className="flex gap-4">
               <button
-                onClick={() => setActiveTab('draft')}
+                onClick={() => onTabChange('draft')}
                 className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg flex items-center gap-2 transition-colors"
               >
                 <PenTool size={20} /> Edit Answers
@@ -229,22 +233,22 @@ export default function Wizard() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-bold uppercase text-gray-500 mb-2">Company Name (Sinhala)</label>
+                      <label className="block text-sm font-bold uppercase text-gray-500 mb-2">Company Name (Sinhala) <span className="text-red-500">*</span></label>
                       <input
                         type="text"
                         value={config.companyNameSinhala}
                         onChange={(e) => setConfig({...config, companyNameSinhala: e.target.value})}
-                        placeholder="Optional"
+                        placeholder="Required"
                         className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-black focus:outline-none transition-all"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-bold uppercase text-gray-500 mb-2">Company Name (Tamil)</label>
+                      <label className="block text-sm font-bold uppercase text-gray-500 mb-2">Company Name (Tamil) <span className="text-red-500">*</span></label>
                       <input
                         type="text"
                         value={config.companyNameTamil}
                         onChange={(e) => setConfig({...config, companyNameTamil: e.target.value})}
-                        placeholder="Optional"
+                        placeholder="Required"
                         className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-black focus:outline-none transition-all"
                       />
                     </div>
@@ -415,71 +419,37 @@ export default function Wizard() {
           </AnimatePresence>
         </div>
 
-        {/* Navigation Footer */}
-        <div className="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center">
-          <button
-            onClick={handleBack}
-            disabled={currentStep === 0}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
-              currentStep === 0
-                ? 'text-gray-300 cursor-not-allowed'
-                : 'text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            <ChevronLeft size={20} /> Back
-          </button>
+        {/* Navigation Footer - Sticky Bottom */}
+        <div className="sticky bottom-0 bg-white/80 backdrop-blur-md border-t border-gray-200 p-6 -mx-6 mt-auto z-10">
+          <div className="flex justify-between items-center max-w-3xl mx-auto">
+            <button
+              onClick={handleBack}
+              disabled={currentStep === 0}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                currentStep === 0
+                  ? 'text-gray-300 cursor-not-allowed'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              <ChevronLeft size={20} /> Back
+            </button>
 
-          <button
-            onClick={handleNext}
-            className="flex items-center gap-2 px-8 py-3 bg-black text-white rounded-xl font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
-          >
-            {currentStep === totalSteps - 1 ? 'Finish & Review' : 'Next Step'} <ChevronRight size={20} />
-          </button>
+            <button
+              onClick={handleNext}
+              className="flex items-center gap-2 px-8 py-3 bg-black text-white rounded-xl font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+            >
+              {currentStep === totalSteps - 1 ? 'Finish & Review' : 'Next Step'} <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Tab Navigation */}
-      <div className="bg-white border-b border-gray-200 px-6">
-        <div className="max-w-6xl mx-auto flex gap-8">
-          <button
-            onClick={() => setActiveTab('draft')}
-            className={`py-4 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${
-              activeTab === 'draft' || activeTab === 'review'
-                ? 'border-black text-black'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
-            }`}
-          >
-            <PenTool size={16} /> Draft
-          </button>
-          <button
-            onClick={() => setActiveTab('learn')}
-            className={`py-4 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${
-              activeTab === 'learn'
-                ? 'border-emerald-500 text-emerald-700'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
-            }`}
-          >
-            <BookOpen size={16} /> Learn (Glossary & Structure)
-          </button>
-          <button
-            onClick={() => setActiveTab('reference')}
-            className={`py-4 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${
-              activeTab === 'reference'
-                ? 'border-blue-500 text-blue-700'
-                : 'border-transparent text-gray-500 hover:text-gray-800'
-            }`}
-          >
-            <Library size={16} /> Model Articles Reference
-          </button>
-        </div>
-      </div>
-
+    <div className="flex flex-col min-h-screen bg-[#F8F9FA]">
       {/* Main Content */}
-      <div className="flex-1 bg-[#F8F9FA]">
+      <div className="flex-1">
         {renderContent()}
       </div>
     </div>

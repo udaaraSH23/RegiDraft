@@ -50,6 +50,27 @@ This application follows a **Component-Based Architecture** typical of modern Re
     *   **Reference**: Full text of Model Articles with plain English explanations.
     *   **Review**: Final generation of the document for printing/copying.
 
+## Testing
+
+The project includes a comprehensive testing suite:
+
+*   **Unit & Integration Tests**: Powered by [Vitest](https://vitest.dev/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/).
+    *   Run tests: `npm run test`
+    *   Watch mode: `npm run test:watch`
+*   **End-to-End (E2E) Tests**: Powered by [Playwright](https://playwright.dev/).
+    *   Run E2E tests: `npm run test:e2e`
+
+## CI/CD
+
+This project uses **GitHub Actions** for Continuous Integration. The pipeline is defined in `.github/workflows/ci.yml` and automatically runs on every push to `main` and every pull request.
+
+The CI pipeline performs the following steps:
+1.  Installs dependencies.
+2.  Runs linting checks.
+3.  Executes unit and integration tests.
+4.  Installs Playwright browsers and executes E2E tests.
+5.  Uploads Playwright test reports as artifacts.
+
 ## Disclaimer
 
 This software is a tool for drafting and educational purposes. It does not constitute legal advice. Users should consult with a qualified professional before submitting documents to the Registrar of Companies.
