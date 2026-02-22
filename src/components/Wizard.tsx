@@ -147,25 +147,25 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
 
     if (activeTab === 'review') {
       return (
-        <div className="max-w-4xl mx-auto p-8 bg-white min-h-screen">
-          <div className="no-print flex justify-between items-center mb-8 border-b pb-4 sticky top-0 bg-white z-10 pt-4">
+        <div className="max-w-4xl mx-auto p-4 md:p-8 bg-white min-h-screen">
+          <div className="no-print flex flex-col md:flex-row justify-between items-center mb-8 border-b pb-4 sticky top-0 bg-white z-10 pt-4 gap-4">
             <h2 className="text-2xl font-bold text-gray-900">Final Review</h2>
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-4 w-full md:w-auto">
               <button
                 onClick={() => onTabChange('draft')}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg flex items-center gap-2 transition-colors"
+                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg flex items-center justify-center gap-2 transition-colors w-full md:w-auto"
               >
                 <PenTool size={20} /> Edit Answers
               </button>
               <button
                 onClick={copyToClipboard}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg flex items-center gap-2 hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors w-full md:w-auto"
               >
                 <Copy size={20} /> Copy Text
               </button>
               <button
                 onClick={printDocument}
-                className="px-4 py-2 bg-black text-white rounded-lg flex items-center gap-2 hover:bg-gray-800 transition-colors shadow-md"
+                className="px-4 py-2 bg-black text-white rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors shadow-md w-full md:w-auto"
               >
                 <Printer size={20} /> Print / Save PDF
               </button>
@@ -173,7 +173,7 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
           </div>
 
           {/* Document Generation Output */}
-          <div className="print-content font-serif leading-relaxed text-justify max-w-3xl mx-auto whitespace-pre-wrap">
+          <div className="print-content font-serif leading-relaxed text-justify max-w-3xl mx-auto whitespace-pre-wrap text-sm md:text-base">
             {generateShortFormArticles(config)}
           </div>
 
@@ -187,7 +187,7 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
 
     // Default Strategy: Draft Mode (Wizard)
     return (
-      <div className="max-w-3xl mx-auto p-6 min-h-screen flex flex-col">
+      <div className="max-w-3xl mx-auto p-4 md:p-6 min-h-screen flex flex-col">
         {/* Progress Bar */}
         <div className="mb-8">
           <div className="flex justify-between text-sm font-medium text-gray-500 mb-2">
@@ -212,7 +212,7 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm"
+                className="bg-white p-4 md:p-8 rounded-2xl border border-gray-200 shadow-sm"
               >
                 <div className="flex items-center gap-3 mb-6 text-emerald-600">
                   <Info size={28} />
@@ -256,7 +256,7 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
 
                   <div>
                     <label className="block text-sm font-bold uppercase text-gray-500 mb-2">Company Type</label>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col md:flex-row gap-4">
                       <div className="flex-1 py-4 px-6 rounded-xl font-medium transition-all flex flex-col items-center gap-2 border bg-black text-white border-black shadow-lg">
                         <span className="text-lg">Private Limited (Pvt Ltd)</span>
                         <CheckCircle size={18} className="text-emerald-400" />
@@ -280,7 +280,7 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm"
+                className="bg-white p-4 md:p-8 rounded-2xl border border-gray-200 shadow-sm"
               >
                 <div className="flex items-center gap-3 mb-6 text-emerald-600">
                   <FileText size={28} />
@@ -312,7 +312,7 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm"
+                className="bg-white p-4 md:p-8 rounded-2xl border border-gray-200 shadow-sm"
               >
                 <div className="flex items-center gap-3 mb-6 text-emerald-600">
                   <Info size={28} />
@@ -366,7 +366,7 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm"
+                className="bg-white p-4 md:p-8 rounded-2xl border border-gray-200 shadow-sm"
               >
                 <div className="flex items-center gap-3 mb-6 text-emerald-600">
                   <Info size={28} />
@@ -420,12 +420,12 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
         </div>
 
         {/* Navigation Footer - Sticky Bottom */}
-        <div className="sticky bottom-0 bg-white/80 backdrop-blur-md border-t border-gray-200 p-6 -mx-6 mt-auto z-10">
+        <div className="sticky bottom-0 bg-white/80 backdrop-blur-md border-t border-gray-200 p-4 -mx-4 md:p-6 md:-mx-6 mt-auto z-10">
           <div className="flex justify-between items-center max-w-3xl mx-auto">
             <button
               onClick={handleBack}
               disabled={currentStep === 0}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-3 md:px-6 rounded-xl font-medium transition-all ${
                 currentStep === 0
                   ? 'text-gray-300 cursor-not-allowed'
                   : 'text-gray-600 hover:bg-gray-100'
@@ -436,7 +436,7 @@ export default function Wizard({ activeTab, onTabChange }: WizardProps) {
 
             <button
               onClick={handleNext}
-              className="flex items-center gap-2 px-8 py-3 bg-black text-white rounded-xl font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+              className="flex items-center gap-2 px-6 py-3 md:px-8 bg-black text-white rounded-xl font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
             >
               {currentStep === totalSteps - 1 ? 'Finish & Review' : 'Next Step'} <ChevronRight size={20} />
             </button>

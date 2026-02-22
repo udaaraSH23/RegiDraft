@@ -22,7 +22,7 @@ export default function ModelArticlesReference() {
   const [selectedId, setSelectedId] = useState<string>(fullModelArticles[0].id);
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 h-[calc(100vh-200px)]">
+    <div className="flex flex-col md:flex-row gap-6 h-[calc(100vh-150px)] md:h-[calc(100vh-200px)]">
       {/* Sidebar Navigation (Master View) */}
       <div className="w-full md:w-1/4 bg-white rounded-xl border border-gray-200 overflow-y-auto">
         <div className="p-4 border-b border-gray-100 bg-gray-50">
@@ -59,7 +59,7 @@ export default function ModelArticlesReference() {
               className="flex flex-col h-full"
             >
               {/* Header */}
-              <div className="p-6 border-b border-gray-100 bg-gray-50 flex justify-between items-start">
+              <div className="p-4 md:p-6 border-b border-gray-100 bg-gray-50 flex justify-between items-start">
                 <div>
                   <h2 className="text-xl font-bold text-gray-900">{section.title}</h2>
                   <div className="mt-1 flex flex-col gap-1">
@@ -77,7 +77,7 @@ export default function ModelArticlesReference() {
               </div>
 
               {/* Scrollable Content */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-8 bg-gray-50/50">
+              <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-8 bg-gray-50/50">
                 {section.articles.map((article, index) => (
                   <div key={index} className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
                     {/* Article Header */}
@@ -90,7 +90,7 @@ export default function ModelArticlesReference() {
 
                     <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100">
                       {/* Plain English Column */}
-                      <div className="p-6 bg-emerald-50/30">
+                      <div className="p-4 md:p-6 bg-emerald-50/30">
                         <h4 className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-3 flex items-center gap-2">
                           <FileText size={14} /> Plain English
                         </h4>
@@ -100,7 +100,7 @@ export default function ModelArticlesReference() {
                       </div>
 
                       {/* Legal Text Column */}
-                      <div className="p-6">
+                      <div className="p-4 md:p-6">
                         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                           <Scale size={14} /> Legal Text
                         </h4>

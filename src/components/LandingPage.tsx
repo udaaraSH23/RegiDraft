@@ -24,7 +24,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Hero Section */}
-      <header className="flex-1 flex flex-col justify-center items-center text-center px-6 py-12 bg-gradient-to-b from-emerald-50 to-white">
+      <header className="flex-1 flex flex-col justify-center items-center text-center px-6 py-12 md:py-20 bg-gradient-to-b from-emerald-50 to-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
           
           <button
             onClick={onStart}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-black text-white text-lg font-medium rounded-2xl hover:bg-gray-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+            className="group relative inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-black text-white text-base md:text-lg font-medium rounded-2xl hover:bg-gray-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
           >
             Start Drafting Now
             <ArrowRight className="group-hover:translate-x-1 transition-transform" />
@@ -58,7 +58,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
       </header>
 
       {/* Features Grid */}
-      <section className="py-12 px-6 max-w-7xl mx-auto w-full">
+      <section className="py-12 md:py-16 px-6 max-w-7xl mx-auto w-full">
         <div className="grid md:grid-cols-3 gap-6">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
